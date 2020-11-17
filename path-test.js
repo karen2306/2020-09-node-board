@@ -1,4 +1,4 @@
-const { resolve } = require('path');
+
 const path = require('path');
 
 var join = path.join = path.join(__dirname, '/storage');

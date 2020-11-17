@@ -7,3 +7,4 @@
 -- SELECT * FROM books ORDER BY id DESC;
 -- SELECT * FROM books WHERE id=3;
 -- SELECT * FROM books ORDER by id DESC LIMIT 1, 3;
+SELECT COUNT(id) FROM books;
