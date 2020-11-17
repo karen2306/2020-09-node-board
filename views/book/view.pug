@@ -16,16 +16,18 @@ block content
 				td.content= book.wdate
 			if book.file
 				tr
-				td.title 첨부파일
-				td.content
-					a(href=`/book/download?file=${book.savefile}&name=${book.realfile}`)
-						i.fa.fa-download
-						span.ml-2= book.realfile
+					td.title 첨부파일
+					td.content
+						a(href=`/book/download?file=${book.savefile}&name=${book.realfile}`)
+							i.fa.fa-download
+							span.ml-2= book.realfile
 			tr
 				td.title 내용
 				td.content= book.content
 					if book.src
-					hr
-					img.mw-100(src=`${book.src}`)
+						hr
+						img.mw-100(src=`${book.src}`)
 	.mt-3.my-5.pb-5.text-center
-		a.btn.btn-info(href="/book") 리스트보기
+		a.btn.btn-success.mr-2(href=`javascript: onUpdate(${book.id})`) 수정
+		a.btn.btn-danger.mr-5(href=`javascript: onDelete(${book.id})`) 삭제
+		a.btn.btn-info(href=`/book/list/${page || 1}`) 리스트보기
