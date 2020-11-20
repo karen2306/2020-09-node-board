@@ -7,4 +7,9 @@
 -- SELECT * FROM books ORDER BY id DESC;
 -- SELECT * FROM books WHERE id=3;
 -- SELECT * FROM books ORDER by id DESC LIMIT 1, 3;
-SELECT COUNT(id) FROM books;
+-- SELECT COUNT(id) FROM books;
+-- SELECT*FROM books ORDER BY id DESC;
+-- 1pafe 쿼리
+-- SELECT * FROM books ORDER BY id DESC LIMIT 3, 3;
+-- INSERT INTO users SET userid='karen2306',userpw='0000',username='이예솔',email= 'karen2306@naver.com';
+SELECT * FROM users WHERE userid LIKE '%kar%';
