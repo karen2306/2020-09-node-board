@@ -5,6 +5,8 @@ const app = express();
 const path = require('path');
 const error = require('http-errors');
 const session = require('./modules/session-conn');
+const morgan = require('./modules/morgan-conn');
+const local = require('./modules/local-conn');
 
 /** 라우터 등록 **********************/
 const testRouter = require('./routes/test');
@@ -21,11 +23,14 @@ app.listen(process.env.PORT, () => {
 /** 초기설정 **********************/
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, './views'));
-app.locals.pretty = true;
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use(morgan());
 app.use(session());
+app.use(local());
+
 
 
 /** 라우터설정 **********************/
