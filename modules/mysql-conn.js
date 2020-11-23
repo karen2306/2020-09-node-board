@@ -78,6 +78,7 @@ const sqlGen = async (table, mode, obj) => {
 		connect = await pool.getConnection();
 		rs = await connect.query(sql, values); 
 		connect.release();
+		console.log(sql, values);
 		return rs;
 	}
 	catch(e) {
