@@ -29,7 +29,7 @@ const pool = mysql.createPool({
 // let field= ['title', 'writer'];
 // Object.entries({title: "제", writer: "자", wdate: "11-16"}).filter(v => field.includes(v[0]));
 const sqlGen = async (table, mode, obj) => {
-	let { field=[], data={}, file=null, where=null, order=[], limit=[] } = obj;
+	let { field=[], data={}, file=null, where=null, order=[], limit=[]  } = obj;
 	let sql=null, values=[], connect=null, rs=null;
 	let temp = Object.entries(data).filter(v => field.includes(v[0]));
 	
@@ -53,18 +53,18 @@ const sqlGen = async (table, mode, obj) => {
 	}
 	sql = sql.substr(0, sql.length - 1);
 	if(Array.isArray(where)) {
-		if(where[2] && where[2].toUpperCase() == 'LIKE' )
+		if(where[2] && where[2].toUpperCase() == 'LIKE')
 			sql += ` WHERE ${where[0]} LIKE '%${where[1]}%' `;
-		else 
+		else
 			sql += ` WHERE ${where[0]} = '${where[1]}' `;
 	}
 	if(where && where.op && where.fields && (where.op.toUpperCase() == 'AND' || where.op.toUpperCase() == 'OR')) {
 		for(let i in where.fields) {
-			if(i == 0) sql += `WHERE`;
-			else sql += `${where.op}`;
-			if(where.fields[i][2] && where.fields[i][2].toUpperCase() == 'LIKE' )
-				sql += `${where.fields[i][0]} LIKE '%${where.fields[i][1]}%' `;
-			else 
+			if(i == 0) sql += ` WHERE `;
+			else sql += ` ${where.op} `;
+			if(where.fields[i][2] && where.fields[i][2].toUpperCase() == 'LIKE')
+				sql += ` ${where.fields[i][0]} LIKE '%${where.fields[i][1]}%' `;
+			else
 				sql += ` ${where.fields[i][0]} = '${where.fields[i][1]}' `;
 		}
 	}
@@ -74,17 +74,17 @@ const sqlGen = async (table, mode, obj) => {
 	if((mode == 'D' || mode == 'U') && sql.indexOf('WHERE') == -1) {
 		throw new Error('수정, 삭제는 where절이 필요합니다.');
 	}
-	try{
+	console.log(sql);
+	try {
 		connect = await pool.getConnection();
 		rs = await connect.query(sql, values); 
 		connect.release();
-		console.log(sql, values);
 		return rs;
 	}
 	catch(e) {
-		if(connect)connect.release();
+		if(connect) connect.release();
 		throw new Error(e);
-	}	
+	}
 }
 
 module.exports = { pool, mysql, sqlGen };
